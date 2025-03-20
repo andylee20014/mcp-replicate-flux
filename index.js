@@ -19,8 +19,7 @@ server.tool(
       const imageUrl = await generateImage({ prompt, filename })
       return {
         content: [
-          { type: 'text', text: `Image successfully generated and uploaded to Cloudflare R2` },
-          { type: 'image', url: imageUrl }
+          { type: 'text', text: `Image successfully generated and uploaded to Cloudflare R2: ${imageUrl}` }
         ]
       }
     } catch (error) {
