@@ -142,18 +142,25 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                 <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
-                    快速开始
+                    本地安装使用
                 </h2>
             </div>
             <div class="mt-10">
                 <div class="bg-white overflow-hidden shadow rounded-lg">
                     <div class="px-4 py-5 sm:p-6">
-                        <h3 class="text-lg font-medium text-gray-900">1. 安装依赖</h3>
+                        <h3 class="text-lg font-medium text-gray-900">1. 克隆项目</h3>
+                        <div class="code-block mt-4">
+                            <pre>git clone https://github.com/andylee20014/mcp-replicate-flux.git
+cd mcp-replicate-flux</pre>
+                        </div>
+
+                        <h3 class="text-lg font-medium text-gray-900 mt-6">2. 安装依赖</h3>
                         <div class="code-block mt-4">
                             <pre>npm install</pre>
                         </div>
 
-                        <h3 class="text-lg font-medium text-gray-900 mt-6">2. 配置环境变量</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mt-6">3. 配置环境变量</h3>
+                        <p class="mt-2 text-sm text-gray-500">创建 .env 文件并添加以下配置：</p>
                         <div class="code-block mt-4">
                             <pre>REPLICATE_API_TOKEN=your_token
 STORAGE_ENDPOINT=your_endpoint
@@ -163,9 +170,27 @@ STORAGE_BUCKET=your_bucket
 STORAGE_DOMAIN=your_domain</pre>
                         </div>
 
-                        <h3 class="text-lg font-medium text-gray-900 mt-6">3. 启动服务</h3>
+                        <h3 class="text-lg font-medium text-gray-900 mt-6">4. 启动服务</h3>
                         <div class="code-block mt-4">
                             <pre>node index.js</pre>
+                        </div>
+
+                        <div class="mt-6 bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-exclamation-triangle text-yellow-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-yellow-800">环境要求</h3>
+                                    <div class="mt-2 text-sm text-yellow-700">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>Node.js v16 或更高版本</li>
+                                            <li>Replicate API token</li>
+                                            <li>Cloudflare R2 存储配置</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -249,18 +274,6 @@ async function generateImage(prompt, filename) {
     "replicate-flux": {
       "command": "node",
       "args": ["C:\\Users\\YourUsername\\path\\to\\mcp-replicate-flux\\index.js"]
-    }
-  }
-}</pre>
-                        </div>
-
-                        <h3 class="text-lg font-medium text-gray-900 mt-8">方式三：远程SSE配置</h3>
-                        <p class="mt-2 text-sm text-gray-500">如果你想连接到已部署的远程MCP服务器（如Railway），可以使用SSE配置：</p>
-                        <div class="code-block mt-4">
-                            <pre>{
-  "mcpServers": {
-    "replicate-flux": {
-      "url": "https://mcp-replicate-flux-production-8cbd.up.railway.app/sse"
     }
   }
 }</pre>

@@ -51,7 +51,7 @@ Follow these steps to set up the project locally:
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/mcp-replicate-flux.git
+git clone https://github.com/andylee20014/mcp-replicate-flux.git
 cd mcp-replicate-flux
 
 # Install dependencies
@@ -157,101 +157,6 @@ You can modify the prompt in `test.js` to test different image generation scenar
 
 您可以在 `test.js` 中修改提示词来测试不同的图片生成场景。
 
-## Deployment 部署
-
-This MCP server can be deployed to various cloud platforms. Here are some recommended deployment options:
-
-这个 MCP 服务器可以部署到各种云平台。以下是一些推荐的部署选项：
-
-### Option 1: Railway.app
-
-1. Fork this repository to your GitHub account
-2. Create a new project on Railway.app
-3. Connect your GitHub repository
-4. Add the required environment variables in Railway.app's dashboard
-5. Deploy the project
-
-Railway.app will automatically detect this as a Node.js project and set up the appropriate build configuration.
-
-Railway.app 会自动检测到这是一个 Node.js 项目并设置适当的构建配置。
-
-### Option 2: Render.com
-
-1. Create a new Web Service on Render.com
-2. Connect your GitHub repository
-3. Configure the service:
-   - Build Command: `npm install`
-   - Start Command: `node index.js`
-4. Add the required environment variables in Render.com's dashboard
-5. Deploy the service
-
-### Option 3: DigitalOcean App Platform
-
-1. Create a new app on DigitalOcean App Platform
-2. Connect your GitHub repository
-3. Configure the app:
-   - Environment: Node.js
-   - Build Command: `npm install`
-   - Run Command: `node index.js`
-4. Add the required environment variables
-5. Deploy the app
-
-### Deployment with Docker 使用 Docker 部署
-
-You can also deploy the MCP server using Docker:
-
-您也可以使用 Docker 部署 MCP 服务器：
-
-```bash
-# Build the Docker image
-docker build -t mcp-replicate-flux .
-
-# Run the container with environment variables
-docker run -p 3000:3000 \
-  -e REPLICATE_API_TOKEN=your_token \
-  -e STORAGE_ENDPOINT=your_endpoint \
-  -e STORAGE_ACCESS_KEY=your_access_key \
-  -e STORAGE_SECRET_KEY=your_secret_key \
-  -e STORAGE_BUCKET=your_bucket \
-  -e STORAGE_DOMAIN=your_domain \
-  mcp-replicate-flux
-```
-
-### Important Notes 重要说明
-
-- Make sure to set all required environment variables in your cloud platform's dashboard
-- The server uses stdio transport, which is compatible with most cloud platforms
-- Consider setting up monitoring and logging for production deployment
-- For production use, consider using PM2 or similar process manager
-
-- 确保在云平台的控制面板中设置所有必需的环境变量
-- 服务器使用 stdio 传输，与大多数云平台兼容
-- 考虑为生产环境部署设置监控和日志记录
-- 对于生产环境，考虑使用 PM2 或类似的进程管理器
-
-## Project Structure 项目结构
-
-```
-mcp-replicate-flux/
-├── .env                  # Environment variables
-├── index.js              # MCP server entry point
-├── generateImage.js      # Image generation and R2 upload logic
-├── test.js               # Test script
-└── README.md             # Project documentation
-```
-
-## Troubleshooting 故障排除
-
-### Common Issues 常见问题
-
-1. **Image generation fails**: Check your Replicate API token and quota
-2. **R2 upload fails**: Verify your R2 credentials and bucket permissions
-3. **Cannot access generated images**: Ensure your R2 bucket has proper CORS configuration
-
-1. **图片生成失败**：检查您的 Replicate API 令牌和配额
-2. **R2 上传失败**：验证您的 R2 凭证和存储桶权限
-3. **无法访问生成的图片**：确保您的 R2 存储桶具有正确的 CORS 配置
-
 ## Cursor MCP Configuration Cursor MCP配置
 
 There are two ways to configure the MCP server in Cursor:
@@ -320,6 +225,29 @@ When using the minimal configuration, make sure your environment variables are p
 - `description` 描述字段在两种方式中都是可选的
 - 配置文件中的环境变量优先级高于系统环境变量
 - 更改配置后，需要重启Cursor以应用更改
+
+## Project Structure 项目结构
+
+```
+mcp-replicate-flux/
+├── .env                  # Environment variables
+├── index.js             # MCP server entry point
+├── generateImage.js      # Image generation and R2 upload logic
+├── test.js              # Test script
+└── README.md            # Project documentation
+```
+
+## Troubleshooting 故障排除
+
+### Common Issues 常见问题
+
+1. **Image generation fails**: Check your Replicate API token and quota
+2. **R2 upload fails**: Verify your R2 credentials and bucket permissions
+3. **Cannot access generated images**: Ensure your R2 bucket has proper CORS configuration
+
+1. **图片生成失败**：检查您的 Replicate API 令牌和配额
+2. **R2 上传失败**：验证您的 R2 凭证和存储桶权限
+3. **无法访问生成的图片**：确保您的 R2 存储桶具有正确的 CORS 配置
 
 ## MCP Protocol 协议说明
 
