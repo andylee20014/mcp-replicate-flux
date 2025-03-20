@@ -254,6 +254,18 @@ async function generateImage(prompt, filename) {
 }</pre>
                         </div>
 
+                        <h3 class="text-lg font-medium text-gray-900 mt-8">方式三：远程SSE配置</h3>
+                        <p class="mt-2 text-sm text-gray-500">如果你想连接到已部署的远程MCP服务器（如Railway），可以使用SSE配置：</p>
+                        <div class="code-block mt-4">
+                            <pre>{
+  "mcpServers": {
+    "replicate-flux": {
+      "url": "https://mcp-replicate-flux-production-8cbd.up.railway.app/sse"
+    }
+  }
+}</pre>
+                        </div>
+
                         <div class="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4">
                             <div class="flex">
                                 <div class="flex-shrink-0">
