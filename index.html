@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Replicate FLUX - AI图像生成服务</title>
+    <link rel="icon" type="image/png" href="http://freeaigen.com/favicon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .feature-card {
+            transition: transform 0.2s ease-in-out;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .demo-image {
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-sm fixed w-full z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold gradient-text">MCP Replicate FLUX</span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="#features" class="text-gray-600 hover:text-gray-900">特性</a>
+                    <a href="#installation" class="text-gray-600 hover:text-gray-900">安装</a>
+                    <a href="#usage" class="text-gray-600 hover:text-gray-900">使用</a>
+                    <a href="#demo" class="text-gray-600 hover:text-gray-900">演示</a>
+                    <a href="https://github.com/andylee20014/mcp-replicate-flux" target="_blank" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        <i class="fab fa-github mr-2"></i> GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主页横幅 -->
+    <div class="pt-24 pb-8 md:pt-32">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                    <span class="block">MCP Replicate FLUX</span>
+                    <span class="block gradient-text mt-3">AI 图像生成服务</span>
+                </h1>
+                <p class="mt-3 max-w-md mx-auto text-base text-gray-500 sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
+                    基于 Model Context Protocol (MCP) 的图像生成服务，使用 Replicate 的 FLUX 模型生成高质量图片并存储到 Cloudflare R2
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 特性部分 -->
+    <div id="features" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
+                    核心特性
+                </h2>
+            </div>
+            <div class="mt-10">
+                <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <!-- 特性卡片 1 -->
+                    <div class="feature-card bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="text-center">
+                                <i class="fas fa-image text-4xl text-indigo-600"></i>
+                                <h3 class="mt-2 text-lg font-medium text-gray-900">高质量图像生成</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    使用 Replicate 的 FLUX 模型生成高质量图片，支持多种风格和场景
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 特性卡片 2 -->
+                    <div class="feature-card bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="text-center">
+                                <i class="fas fa-cloud text-4xl text-indigo-600"></i>
+                                <h3 class="mt-2 text-lg font-medium text-gray-900">云存储集成</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    自动将生成的图片存储到 Cloudflare R2，确保高速访问和可靠存储
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 特性卡片 3 -->
+                    <div class="feature-card bg-white overflow-hidden shadow rounded-lg">
+                        <div class="px-4 py-5 sm:p-6">
+                            <div class="text-center">
+                                <i class="fas fa-code text-4xl text-indigo-600"></i>
+                                <h3 class="mt-2 text-lg font-medium text-gray-900">简单集成</h3>
+                                <p class="mt-1 text-sm text-gray-500">
+                                    通过 MCP 协议轻松集成到任何支持 MCP 的应用中
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 安装说明 -->
+    <div id="installation" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
+                    快速开始
+                </h2>
+            </div>
+            <div class="mt-10">
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">1. 安装依赖</h3>
+                        <div class="code-block mt-4">
+                            <pre>npm install</pre>
+                        </div>
+
+                        <h3 class="text-lg font-medium text-gray-900 mt-6">2. 配置环境变量</h3>
+                        <div class="code-block mt-4">
+                            <pre>REPLICATE_API_TOKEN=your_token
+STORAGE_ENDPOINT=your_endpoint
+STORAGE_ACCESS_KEY=your_key
+STORAGE_SECRET_KEY=your_secret
+STORAGE_BUCKET=your_bucket
+STORAGE_DOMAIN=your_domain</pre>
+                        </div>
+
+                        <h3 class="text-lg font-medium text-gray-900 mt-6">3. 启动服务</h3>
+                        <div class="code-block mt-4">
+                            <pre>node index.js</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 使用示例 -->
+    <div id="usage" class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
+                    使用示例
+                </h2>
+            </div>
+            <div class="mt-10">
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <div class="code-block">
+                            <pre>const { McpClient } = require('@modelcontextprotocol/sdk/client/mcp.js')
+
+async function generateImage(prompt, filename) {
+  const client = new McpClient()
+  await client.connect(yourTransport)
+  
+  const result = await client.tools.call('generate-image', {
+    prompt,
+    filename
+  })
+  
+  return result
+}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cursor配置说明 -->
+    <div class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
+                    Cursor配置
+                </h2>
+                <p class="mt-4 text-lg text-gray-500">
+                    在Cursor中配置MCP服务器有两种方式
+                </p>
+            </div>
+            <div class="mt-10">
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="px-4 py-5 sm:p-6">
+                        <h3 class="text-lg font-medium text-gray-900">方式一：完整配置</h3>
+                        <p class="mt-2 text-sm text-gray-500">在 ~/.cursor/mcp.json 创建完整配置文件，包含所有环境变量：</p>
+                        <div class="code-block mt-4">
+                            <pre>{
+  "mcpServers": {
+    "replicate-flux": {
+      "command": "node",
+      "args": ["C:\\Users\\YourUsername\\path\\to\\mcp-replicate-flux\\index.js"],
+      "description": "使用Replicate的FLUX模型生成图片并存储到Cloudflare R2的MCP服务器",
+      "env": {
+        "REPLICATE_API_TOKEN": "your_replicate_token",
+        "STORAGE_ENDPOINT": "your_r2_endpoint",
+        "STORAGE_ACCESS_KEY": "your_r2_access_key",
+        "STORAGE_SECRET_KEY": "your_r2_secret_key",
+        "STORAGE_BUCKET": "your_bucket_name",
+        "STORAGE_DOMAIN": "your_domain"
+      }
+    }
+  }
+}</pre>
+                        </div>
+
+                        <h3 class="text-lg font-medium text-gray-900 mt-8">方式二：最小配置</h3>
+                        <p class="mt-2 text-sm text-gray-500">如果你想单独管理环境变量（使用系统环境变量或.env文件），可以使用最小配置：</p>
+                        <div class="code-block mt-4">
+                            <pre>{
+  "mcpServers": {
+    "replicate-flux": {
+      "command": "node",
+      "args": ["C:\\Users\\YourUsername\\path\\to\\mcp-replicate-flux\\index.js"]
+    }
+  }
+}</pre>
+                        </div>
+
+                        <div class="mt-6 bg-blue-50 border-l-4 border-blue-400 p-4">
+                            <div class="flex">
+                                <div class="flex-shrink-0">
+                                    <i class="fas fa-info-circle text-blue-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-blue-800">注意事项</h3>
+                                    <div class="mt-2 text-sm text-blue-700">
+                                        <ul class="list-disc pl-5 space-y-1">
+                                            <li>description 描述字段在两种方式中都是可选的</li>
+                                            <li>配置文件中的环境变量优先级高于系统环境变量</li>
+                                            <li>更改配置后，需要重启Cursor以应用更改</li>
+                                            <li>使用最小配置时，请确保环境变量已在系统中设置或在.env文件中配置</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 演示部分 -->
+    <div id="demo" class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-extrabold gradient-text sm:text-4xl">
+                    生成效果展示
+                </h2>
+                <p class="mt-4 text-lg text-gray-500">
+                    以下是一些使用 MCP Replicate FLUX 生成的图片示例
+                </p>
+            </div>
+            <div class="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                <img src="https://r2.freeaigen.com/landscape-1742477313339.jpg" alt="示例图片1" class="demo-image w-full h-64 object-cover">
+                <img src="https://r2.freeaigen.com/girl1-1742477313340.jpg" alt="示例图片2" class="demo-image w-full h-64 object-cover">
+                <img src="https://r2.freeaigen.com/girl2-1742477313341.jpg" alt="示例图片3" class="demo-image w-full h-64 object-cover">
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="bg-white">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="mt-8 border-t border-gray-200 pt-8 md:flex md:items-center md:justify-between">
+                <div class="flex items-center space-x-6 md:order-2">
+                    <a href="https://github.com/andylee20014/mcp-replicate-flux" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="https://x.com/DalongOA" class="text-gray-400 hover:text-gray-500">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+                <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+                    &copy; 2025 MCP Replicate FLUX. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html> 
