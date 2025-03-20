@@ -252,6 +252,75 @@ mcp-replicate-flux/
 2. **R2 上传失败**：验证您的 R2 凭证和存储桶权限
 3. **无法访问生成的图片**：确保您的 R2 存储桶具有正确的 CORS 配置
 
+## Cursor MCP Configuration Cursor MCP配置
+
+There are two ways to configure the MCP server in Cursor:
+
+在Cursor中配置MCP服务器有两种方式：
+
+### Method 1: Complete Configuration 完整配置方式
+
+Create a file at `~/.cursor/mcp.json` with all environment variables:
+
+在 `~/.cursor/mcp.json` 创建完整配置文件，包含所有环境变量：
+
+```json
+{
+  "mcpServers": {
+    "replicate-flux": {
+      "command": "node",
+      "args": ["C:\\Users\\YourUsername\\path\\to\\mcp-replicate-flux\\index.js"],
+      "description": "使用Replicate的FLUX模型生成图片并存储到Cloudflare R2的MCP服务器",
+      "env": {
+        "REPLICATE_API_TOKEN": "your_replicate_token",
+        "STORAGE_ENDPOINT": "your_r2_endpoint",
+        "STORAGE_ACCESS_KEY": "your_r2_access_key",
+        "STORAGE_SECRET_KEY": "your_r2_secret_key",
+        "STORAGE_BUCKET": "your_bucket_name",
+        "STORAGE_DOMAIN": "your_domain"
+      }
+    }
+  }
+}
+```
+
+### Method 2: Minimal Configuration 最小配置方式
+
+If you prefer to manage environment variables separately (using system environment variables or .env file), you can use a minimal configuration:
+
+如果你想单独管理环境变量（使用系统环境变量或.env文件），可以使用最小配置：
+
+```json
+{
+  "mcpServers": {
+    "replicate-flux": {
+      "command": "node",
+      "args": ["C:\\Users\\YourUsername\\path\\to\\mcp-replicate-flux\\index.js"]
+    }
+  }
+}
+```
+
+When using the minimal configuration, make sure your environment variables are properly set up either in:
+- System environment variables
+- `.env` file in the project directory
+- Cloud platform's environment variables (for deployed servers)
+
+使用最小配置时，请确保你的环境变量正确设置在以下位置之一：
+- 系统环境变量
+- 项目目录中的 `.env` 文件
+- 云平台的环境变量（对于已部署的服务器）
+
+### Notes 注意事项
+
+- The `description` field is optional in both methods
+- Environment variables in the configuration file take precedence over system environment variables
+- After changing the configuration, restart Cursor to apply the changes
+
+- `description` 描述字段在两种方式中都是可选的
+- 配置文件中的环境变量优先级高于系统环境变量
+- 更改配置后，需要重启Cursor以应用更改
+
 ## MCP Protocol 协议说明
 
 The Model Context Protocol (MCP) is a standard for AI model interaction that enables interoperability between different AI systems. This server implements an MCP tool that can be used with any MCP-compatible client.
