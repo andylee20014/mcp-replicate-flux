@@ -18,6 +18,22 @@ module.exports = async ({ prompt, filename }) => {
   })
 
   try {
+    // 生成唯一文件名，避免覆盖
+    const timestamp = Date.now()
+    const fileNameWithoutExt = path.basename(filename, path.extname(filename))
+    const fileExt = path.extname(filename) || '.jpg'
+    const uniqueFilename = `${fileNameWithoutExt}-${timestamp}${fileExt}`
+    
+    // 创建基于日期的文件夹结构
+    const date = new Date()
+    const year = date.getFullYear()
+    const month = String(date.getMonth() + 1).padStart(2, '0') // 月份从0开始，需要+1
+    const day = String(date.getDate()).padStart(2, '0')
+    const folderPath = `${year}/${month}/${day}`
+    
+    // 完整的文件路径，包含日期文件夹
+    const fullFilePath = `${folderPath}/${uniqueFilename}`
+
     // 使用 Replicate 生成图片
     const output = await replicate.run('black-forest-labs/flux-schnell', {
       input: {
@@ -45,16 +61,16 @@ module.exports = async ({ prompt, filename }) => {
     }
     const imageBuffer = await response.arrayBuffer()
 
-    // 上传到 R2
+    // 上传到 R2，使用包含日期文件夹的路径
     await s3Client.send(new PutObjectCommand({
       Bucket: process.env.STORAGE_BUCKET,
-      Key: filename,
+      Key: fullFilePath,
       Body: Buffer.from(imageBuffer),
       ContentType: 'image/jpeg'
     }))
 
     // 返回可访问的图片链接
-    const r2ImageUrl = `https://${process.env.STORAGE_DOMAIN}/${filename}`
+    const r2ImageUrl = `https://${process.env.STORAGE_DOMAIN}/${fullFilePath}`
     return r2ImageUrl
   } catch (error) {
     console.error('Error in generateImage:', error)
