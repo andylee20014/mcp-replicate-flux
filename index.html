@@ -54,9 +54,17 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold gradient-text">MCP Replicate FLUX</span>
+                    <span class="text-2xl font-bold gradient-text hidden md:block">MCP Replicate FLUX</span>
+                    <span class="text-lg font-bold gradient-text md:hidden">MCP Replicate FLUX</span>
                 </div>
-                <div class="flex items-center space-x-4">
+                <!-- 移动端汉堡菜单按钮 -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                <!-- 桌面端菜单 -->
+                <div class="hidden md:flex items-center space-x-4">
                     <a href="#features" class="text-gray-600 hover:text-gray-900">特性</a>
                     <a href="#installation" class="text-gray-600 hover:text-gray-900">安装</a>
                     <a href="#usage" class="text-gray-600 hover:text-gray-900">使用</a>
@@ -65,6 +73,18 @@
                         <i class="fab fa-github mr-2"></i> GitHub
                     </a>
                 </div>
+            </div>
+        </div>
+        <!-- 移动端下拉菜单 -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-md">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#features" class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">特性</a>
+                <a href="#installation" class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">安装</a>
+                <a href="#usage" class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">使用</a>
+                <a href="#demo" class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">演示</a>
+                <a href="https://github.com/andylee20014/mcp-replicate-flux" target="_blank" class="block px-3 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md">
+                    <i class="fab fa-github mr-2"></i> GitHub
+                </a>
             </div>
         </div>
     </nav>
@@ -340,5 +360,26 @@ async function generateImage(prompt, filename) {
             </div>
         </div>
     </footer>
+
+    <!-- 移动端菜单脚本 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            // 点击汉堡按钮切换菜单显示状态
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // 点击菜单项后收起菜单
+            const mobileMenuItems = mobileMenu.querySelectorAll('a');
+            mobileMenuItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
