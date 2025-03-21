@@ -1,5 +1,7 @@
 # MCP Replicate FLUX
 
+[![smithery badge](https://smithery.ai/badge/@andylee20014/mcp-replicate-flux)](https://smithery.ai/server/@andylee20014/mcp-replicate-flux)
+
 A Model Context Protocol (MCP) server that generates images using Replicate's FLUX model and stores them in Cloudflare R2.
 
 使用 Replicate 的 FLUX 模型生成图片并存储到 Cloudflare R2 的模型上下文协议（MCP）服务器。
@@ -44,6 +46,16 @@ STORAGE_DOMAIN=your_domain
 ```
 
 ## Local Installation 本地安装
+
+### Installing via Smithery
+
+To install MCP Replicate FLUX for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@andylee20014/mcp-replicate-flux):
+
+```bash
+npx -y @smithery/cli install @andylee20014/mcp-replicate-flux --client claude
+```
+
+### Installing manually
 
 Follow these steps to set up the project locally:
 

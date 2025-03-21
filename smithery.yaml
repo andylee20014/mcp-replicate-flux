@@ -1,0 +1,55 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - replicateApiToken
+      - storageEndpoint
+      - storageAccessKey
+      - storageSecretKey
+      - storageBucket
+      - storageDomain
+    properties:
+      replicateApiToken:
+        type: string
+        description: Token to authenticate with Replicate API
+      storageEndpoint:
+        type: string
+        description: Endpoint URL for the S3 compatible storage (e.g., Cloudflare R2)
+      storageAccessKey:
+        type: string
+        description: Access key for S3 storage
+      storageSecretKey:
+        type: string
+        description: Secret key for S3 storage
+      storageBucket:
+        type: string
+        description: Bucket name for storing the generated images
+      storageDomain:
+        type: string
+        description: Domain for accessing images from the storage
+  commandFunction:
+    # A JS function that produces the CLI command based on the given config to start the MCP on stdio.
+    |-
+    (config) => ({
+      command: 'node',
+      args: ['index.js'],
+      env: {
+        REPLICATE_API_TOKEN: config.replicateApiToken,
+        STORAGE_ENDPOINT: config.storageEndpoint,
+        STORAGE_ACCESS_KEY: config.storageAccessKey,
+        STORAGE_SECRET_KEY: config.storageSecretKey,
+        STORAGE_BUCKET: config.storageBucket,
+        STORAGE_DOMAIN: config.storageDomain
+      }
+    })
+  exampleConfig:
+    replicateApiToken: dummy-replicate-token
+    storageEndpoint: https://dummy-storage.endpoint
+    storageAccessKey: dummy-access-key
+    storageSecretKey: dummy-secret-key
+    storageBucket: dummy-bucket
+    storageDomain: dummy.storage.domain
